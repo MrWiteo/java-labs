@@ -2,34 +2,21 @@ package task3;
 
 public class Car {
     private String brand;
-    private String color;
     private int year;
+    private double engineVolume;
 
-    public Car() {
-        this.brand = "Лада";
-        this.color = "белый";
-        this.year = 2000;
-    }
-
-    public Car(String brand, String color, int year) {
+    public Car(String brand, int year, double engineVolume) {
         this.brand = brand;
-        this.color = color;
         this.year = year;
+        this.engineVolume = engineVolume;
     }
 
     public String getBrand() {
         return brand;
     }
 
-    public String getColor() {
-        return color;
-    }
-
-    public int getYear() {
-        return year;
-    }
-
     public void printInfo() {
-        System.out.println("Автомобиль: " + brand + ", цвет: " + color + ", год: " + year);
+        System.out.println("Автомобиль: марка - " + brand + ", год выпуска - " + year
+                + ", объем двигателя - " + engineVolume + " л");
     }
 }

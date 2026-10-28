@@ -1,70 +1,66 @@
 package task1;
 
-// Класс для вычисления выражений
+// Класс для вычисления трёх выражений
 public class Expression {
     private double a;
     private double b;
-    private double c;
+    private double x;
 
-    // конструктор без параметров
-    public Expression() {
+    // конструктор только с x (для y = 3x + 5)
+    public Expression(double x) {
+        this.x = x;
         this.a = 1;
         this.b = 1;
-        this.c = 1;
     }
 
-    // конструктор с двумя параметрами
+    // конструктор с a и b (для y = (a+b)/(a-b))
     public Expression(double a, double b) {
         this.a = a;
         this.b = b;
-        this.c = 1;
+        this.x = 1;
     }
 
-    // конструктор с тремя параметрами
-    public Expression(double a, double b, double c) {
+    // конструктор со всеми параметрами (для y = (ax/b)!)
+    public Expression(double a, double b, double x) {
         this.a = a;
         this.b = b;
-        this.c = c;
+        this.x = x;
     }
 
-    // сумма a + b + c
-    public double sum() {
-        return a + b + c;
+    // 1) y = 3x + 5
+    public double calcLinear() {
+        return 3 * x + 5;
     }
 
-    // произведение a * b * c
-    public double multiply() {
-        return a * b * c;
+    // 2) y = (a + b) / (a - b)
+    public double calcFraction() {
+        if (a - b == 0) {
+            System.out.println("Ошибка: деление на ноль (a равно b)");
+            return Double.NaN;
+        }
+        return (a + b) / (a - b);
     }
 
-    // выражение (a + b) * c
-    public double bracketExpression() {
-        return (a + b) * c;
-    }
-
-    // дискриминант b^2 - 4ac
-    public double discriminant() {
-        return b * b - 4 * a * c;
-    }
-
-    // среднее арифметическое
-    public double average() {
-        return (a + b + c) / 3;
-    }
-
-    // сложное выражение a^2 + b^2 - c
-    public double complexExpression() {
-        return Math.pow(a, 2) + Math.pow(b, 2) - c;
-    }
-
-    public void printAll() {
-        System.out.println("a = " + a + ", b = " + b + ", c = " + c);
-        System.out.println("Сумма: " + sum());
-        System.out.println("Произведение: " + multiply());
-        System.out.println("(a + b) * c = " + bracketExpression());
-        System.out.println("Дискриминант: " + discriminant());
-        System.out.println("Среднее: " + average());
-        System.out.println("a^2 + b^2 - c = " + complexExpression());
-        System.out.println();
+    // 3) y = (a * x / b)!
+    public double calcFactorial() {
+        if (b == 0) {
+            System.out.println("Ошибка: деление на ноль (b равно 0)");
+            return Double.NaN;
+        }
+        double value = a * x / b;
+        // факториал есть только у целых неотрицательных чисел
+        if (value < 0 || value != Math.floor(value)) {
+            System.out.println("Ошибка: факториал не существует для числа " + value);
+            return Double.NaN;
+        }
+        if (value > 170) {
+            System.out.println("Ошибка: слишком большое число для факториала");
+            return Double.NaN;
+        }
+        double result = 1;
+        for (int i = 2; i <= value; i++) {
+            result = result * i;
+        }
+        return result;
     }
 }

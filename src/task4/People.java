@@ -1,20 +1,19 @@
 package task4;
 
-// Абстрактный класс People
+// Абстрактный класс People, реализует интерфейс User
 public abstract class People implements User {
-    protected String name;
+    private String fio;
+    private int age;
+    private String position;
     private String login;
     private String password;
 
-    public People(String name, String login, String password) {
-        this.name = name;
+    public People(String fio, int age, String position, String login, String password) {
+        this.fio = fio;
+        this.age = age;
+        this.position = position;
         this.login = login;
         this.password = password;
-    }
-
-    @Override
-    public String getLogin() {
-        return login;
     }
 
     @Override
@@ -23,8 +22,8 @@ public abstract class People implements User {
     }
 
     @Override
-    public String getPassword() {
-        return password;
+    public String getLogin() {
+        return login;
     }
 
     @Override
@@ -32,10 +31,28 @@ public abstract class People implements User {
         this.password = password;
     }
 
-    public String getName() {
-        return name;
+    @Override
+    public String getPassword() {
+        return password;
     }
 
-    // этот метод обязаны реализовать наследники
-    public abstract void showInfo();
+    @Override
+    public boolean checkPassword(String password) {
+        return this.password.equals(password);
+    }
+
+    public String getFio() {
+        return fio;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    // каждый наследник выводит информацию по-своему
+    public abstract void printInfo();
 }

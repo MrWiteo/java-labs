@@ -2,11 +2,13 @@ package task4;
 
 // Интерфейс "Пользователь"
 public interface User {
+    void setLogin(String login);
+
     String getLogin();
 
-    void setLogin(String login);
+    void setPassword(String password);
 
     String getPassword();
 
-    void setPassword(String password);
+    boolean checkPassword(String password);
 }

@@ -1,6 +1,6 @@
 package task2;
 
-// Класс читателя библиотеки
+// Читатель библиотеки
 public class Reader {
     private String fio;
     private int ticketNumber;
@@ -16,53 +16,68 @@ public class Reader {
         this.phone = phone;
     }
 
-    // 1 вариант: просто количество книг
+    // делает из "Петров Василий Витальевич" строку "Петров В. В."
+    private String shortName() {
+        String[] parts = fio.split(" ");
+        String result = parts[0];
+        for (int i = 1; i < parts.length; i++) {
+            result = result + " " + parts[i].charAt(0) + ".";
+        }
+        return result;
+    }
+
+    // подбирает слово "книга", "книги" или "книг"
+    private String bookWord(int count) {
+        int last = count % 10;
+        int lastTwo = count % 100;
+        if (lastTwo >= 11 && lastTwo <= 14) {
+            return "книг";
+        }
+        if (last == 1) {
+            return "книгу";
+        }
+        if (last >= 2 && last <= 4) {
+            return "книги";
+        }
+        return "книг";
+    }
+
+    // взял указанное количество книг
     public void takeBook(int count) {
-        System.out.println(fio + " взял(а) " + count + " книги(книг)");
+        System.out.println(shortName() + " взял " + count + " " + bookWord(count));
     }
 
-    // 2 вариант: названия книг через запятую (сколько угодно)
+    // взял книги с названиями (сколько угодно названий)
     public void takeBook(String... titles) {
-        System.out.print(fio + " взял(а) книги: ");
+        String list = "";
         for (int i = 0; i < titles.length; i++) {
-            System.out.print(titles[i]);
-            if (i != titles.length - 1) {
-                System.out.print(", ");
+            list = list + titles[i];
+            if (i < titles.length - 1) {
+                list = list + ", ";
             }
         }
-        System.out.println();
+        System.out.println(shortName() + " взял книги: " + list);
     }
 
-    // 3 вариант: автор, название и год издания
-    public void takeBook(String author, String title, int year) {
-        System.out.println(fio + " взял(а) книгу: " + author + " - " + title + " (" + year + " г.)");
-    }
-
-    // возврат: просто количество
+    // вернул указанное количество книг
     public void returnBook(int count) {
-        System.out.println(fio + " вернул(а) " + count + " книги(книг)");
+        System.out.println(shortName() + " вернул " + count + " " + bookWord(count));
     }
 
-    // возврат: названия
+    // вернул книги с названиями
     public void returnBook(String... titles) {
-        System.out.print(fio + " вернул(а) книги: ");
+        String list = "";
         for (int i = 0; i < titles.length; i++) {
-            System.out.print(titles[i]);
-            if (i != titles.length - 1) {
-                System.out.print(", ");
+            list = list + titles[i];
+            if (i < titles.length - 1) {
+                list = list + ", ";
             }
         }
-        System.out.println();
-    }
-
-    // возврат: автор, название, год
-    public void returnBook(String author, String title, int year) {
-        System.out.println(fio + " вернул(а) книгу: " + author + " - " + title + " (" + year + " г.)");
+        System.out.println(shortName() + " вернул книги: " + list);
     }
 
     public void printInfo() {
-        System.out.println("Читатель: " + fio + ", билет №" + ticketNumber
-                + ", факультет: " + faculty + ", дата рождения: " + birthDate
-                + ", телефон: " + phone);
+        System.out.println("ФИО: " + fio + ", билет №" + ticketNumber + ", факультет: " + faculty
+                + ", дата рождения: " + birthDate + ", телефон: " + phone);
     }
 }
